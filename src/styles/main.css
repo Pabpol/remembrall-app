@@ -1,0 +1,21 @@
+:root{
+
+    --keppel-color: #3bba9c;
+    --keppel-dark-color: #338572;
+    --gunmetal-color: #2e3047;
+    --outer-space-color: #43455c;
+    --arsenic-color: #3c3f58;
+    --rhythm-color:#707793;
+    
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--gunmetal-color);
+}
