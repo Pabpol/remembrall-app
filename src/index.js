@@ -1,15 +1,8 @@
 import "./styles/main.css"
-import card from "./components/cards/index"
+import cardList from "./components/cardList/index"
+import data from "./data/todos.json"
 
 const main = document.getElementById("main");
+const cardListElement = cardList(data.todos);
 
-const todoExample = {
-    title: "Mi título",
-    description: "Mi descripción",
-    status: false,
-    dueDate: "Mi fecha límite"
-};
-const cardElement = card(todoExample);
-
-// Añadir el elemento de tarjeta al DOM
-main.appendChild(cardElement);
+main.appendChild(cardListElement);

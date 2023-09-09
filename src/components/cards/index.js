@@ -39,6 +39,7 @@ function createActions() {
     actions.className = "actions";
     iconEdit.className = "fa fa-pencil";
     iconDelete.className = "fa fa-trash";
+    actions.appendChild(iconEdit);
     actions.appendChild(iconDelete);
     
     return actions;
