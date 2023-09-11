@@ -2,6 +2,7 @@ import "./styles/main.css"
 import cardList from "./components/cardList/index"
 import header from "./components/header/index"
 import data from "./data/todos.json"
+import navigation from "./components/navbar/index"
 
 const main = document.getElementById("main");
 const exampleProject = {
@@ -10,6 +11,8 @@ const exampleProject = {
 }
 const headerElement = header(exampleProject);
 const cardListElement = cardList(data.todos);
+const navigationElement = navigation([exampleProject]);
 
+main.appendChild(navigationElement);
 main.appendChild(headerElement);
 main.appendChild(cardListElement);

@@ -1,0 +1,66 @@
+.navigation
+  position fixed
+  width 300px
+  height 100%
+  background-color var(--outer-space-color)
+  transition 0.5s
+  overflow hidden
+  left 0
+
+  &.active
+    width 0px
+
+  ul
+    position absolute
+    top 0
+    left 0
+    width 100%
+
+    li
+      position relative
+      width 100%
+      list-style none
+      border-top-left-radius 30px
+      border-bottom-left-radius 30px
+
+      &:hover,
+      &.hovered
+        background-color var(--gunmetal-color)
+
+      p
+        position relative
+        width 100%
+        display flex
+        text-decoration none
+        color var(--keppel-color)
+
+        &::before,
+        &::after
+          content ''
+          position absolute
+          width 50px
+          height 50px
+          background transparent
+          border-radius 50%
+          pointer-events none
+
+        &:hover::before,
+        &.hovered::before
+          box-shadow 35px 35px 0 10px var(--gunmetal-color)
+          top -50px
+          right 0
+
+        &:hover::after,
+        &.hovered::after
+          box-shadow 35px -35px 0 10px var(--gunmetal-color)
+          bottom -50px
+          right 0
+
+      .title
+        position relative
+        display block
+        padding 0 10px
+        height 60px
+        line-height 60px
+        text-align start
+        white-space nowrap
