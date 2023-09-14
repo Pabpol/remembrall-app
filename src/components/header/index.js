@@ -18,7 +18,6 @@ export default (project) => {
     
     toggleNav.addEventListener('click', () => {
         const navigation = document.querySelector(".navigation");
-        console.log(navigation);
         main.classList.toggle('active');
         navigation.classList.toggle('active');
     });
