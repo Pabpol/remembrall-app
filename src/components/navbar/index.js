@@ -1,4 +1,5 @@
 import "./index.styl";
+import form from "../form/index"
 
 export default projectList =>{
     const navigation = document.createElement("div");
@@ -17,8 +18,8 @@ export default projectList =>{
     newTodoButton.textContent = "New To-Do";
     appName.textContent = "Remembrall App";
 
-    // newTodoButton.addEventListener(onclick, form("todoForm"));
-    // newProjectButton.addEventListener(onclick, form("projectForm"));
+    newTodoButton.addEventListener("click", () => form("todoForm"));
+    newProjectButton.addEventListener("click", () => form("projectForm"));
     
     projectList.forEach(project => {
         const projectLi = document.createElement("li");
