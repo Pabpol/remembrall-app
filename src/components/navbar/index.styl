@@ -55,11 +55,29 @@
       width 100%
       list-style none
       border-radius 30px
+      &::before,
+      &::after
+        content ''
+        position absolute
+        width 50px
+        height 50px
+        background transparent
+        border-radius 50%
+        pointer-events none
 
       &:hover,
       &.hovered
         background-color var(--gunmetal-color)
-
+      &.active
+        background-color var(--gunmetal-color)
+      &.active::before
+        box-shadow 35px 35px 0 10px var(--gunmetal-color)
+        top -50px
+        right 0
+      &.active::after
+        box-shadow 35px -35px 0 10px var(--gunmetal-color)
+        bottom -50px
+        right 0
       p
         position relative
         width 100%
@@ -77,14 +95,12 @@
           border-radius 50%
           pointer-events none
 
-        &:hover::before,
-        &.hovered::before
+        &:hover::before
           box-shadow 35px 35px 0 10px var(--gunmetal-color)
           top -50px
           right 0
 
-        &:hover::after,
-        &.hovered::after
+        &:hover::after
           box-shadow 35px -35px 0 10px var(--gunmetal-color)
           bottom -50px
           right 0

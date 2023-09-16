@@ -10,7 +10,6 @@ export default projectList =>{
     const line = document.createElement("hr");
     const appName = document.createElement("h1");
     
-
     navigation.className = "navigation";
     formsButtons.className = "forms-buttons";
 
@@ -24,11 +23,16 @@ export default projectList =>{
     projectList.forEach(project => {
         const projectLi = document.createElement("li");
         const projectTitle = document.createElement("p");
+        project.id == localStorage.getItem("activeProjectId")? projectLi.className = "active":undefined;
+
+        projectLi.setAttribute("id", `project_${project.id}`);
 
         projectTitle.className = "title";
-        projectTitle.textContent = project.title;
-        projectLi.addEventListener('mouseover', activeItem);
-        projectLi.addEventListener('mouseout', activeItem);
+        projectTitle.textContent = project.name;
+        projectLi.addEventListener("mouseover", hoverItem);
+        projectLi.addEventListener("mouseout", hoverItem);
+        projectLi.addEventListener("click", activeItem);
+        projectLi.addEventListener("click", reloadWindow);
         projectLi.appendChild(projectTitle);
         projects.appendChild(projectLi);
         
@@ -45,6 +49,15 @@ export default projectList =>{
     return navigation;
 }
 
+function hoverItem(){
+    this.classList.toggle("hovered");
+}
 function activeItem(){
-    this.classList.toggle('hovered');
+    document.querySelectorAll("ul > li").forEach(e => e.classList.remove("active"));
+    this.classList.toggle("active");
+}
+function reloadWindow(){
+    const projectId = this.id.replace("project_", "");
+    localStorage.setItem("activeProjectId", projectId);
+    location.reload();
 }
