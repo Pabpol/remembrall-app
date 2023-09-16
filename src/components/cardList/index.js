@@ -3,6 +3,10 @@ import card from "../cards/index"
 
 
 export default (arrayTodo) => {
+    const activeProjectId = parseInt(localStorage.getItem("activeProjectId"));
+    console.log(activeProjectId);
+    const filteredTodos = arrayTodo.filter(todo => todo.projectId == activeProjectId);
+    console.log(filteredTodos);
     const todos = document.createElement("div");
     const todoList = document.createElement("div");
     const listTitle = document.createElement("div");
@@ -11,7 +15,7 @@ export default (arrayTodo) => {
     listTitle.className = "listTitle";
     listTitle.textContent = "To do"
 
-    arrayTodo.forEach(todo => {
+    filteredTodos.forEach(todo => {
         const cardElement = card(todo);
         todos.appendChild(cardElement);
     });
