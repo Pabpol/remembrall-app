@@ -149,16 +149,17 @@ function createProjectForm() {
 }
 
 function addTodo(title, description, dueDate) {
-    const existingTodos = JSON.parse(localStorage.getItem('todos')) || [];
-    const todo = new Todo(existingTodos.todos.length+1, title, description, dueDate)
+    const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const activeProjectId = JSON.parse(localStorage.getItem("activeProjectId")) ;
+    const todo = new Todo(existingTodos.todos.length+1, title, description, false, dueDate, activeProjectId)
     existingTodos.todos.push(todo);
-    localStorage.setItem('todos', JSON.stringify(existingTodos));
+    localStorage.setItem("todos", JSON.stringify(existingTodos));
 
 }
 function addProject(title, description) {
-    const existingProjects = JSON.parse(localStorage.getItem('projects')) || [];
+    const existingProjects = JSON.parse(localStorage.getItem("projects")) || [];
     const project = new Project(existingProjects.projects.length+1, title, description)
     existingProjects.projects.push(project);
-    localStorage.setItem('projects', JSON.stringify(existingProjects));
+    localStorage.setItem("projects", JSON.stringify(existingProjects));
 
 }
