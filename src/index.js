@@ -11,7 +11,7 @@ const exampleProject = {
     description: "Esta es una descripción de un proyecto"
 }
 
-const headerElement = header(exampleProject);
+const headerElement = header(projects());
 const cardListElement = cardList(todos());
 const navigationElement = navigation(projects());
 
