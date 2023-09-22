@@ -73,7 +73,7 @@ function createTodoForm(todo) {
     submitInput.className = "submit";
     submitInput.setAttribute("type", "submit");
     submitInput.value = todo ? "Save" : "Add To-Do";
-    submitInput.addEventListener("click", (e) => {
+    submitInput.addEventListener("click", () => {
         todo ? editTodo(todo, titleInput.value, descInput.value, dateInput.value) : addTodo(titleInput.value, descInput.value, dateInput.value);
     });
 
@@ -152,7 +152,7 @@ function createProjectForm() {
 }
 
 function addTodo(title, description, dueDate) {
-    const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const existingTodos = JSON.parse(localStorage.getItem("todos")) || {todos:[]};
     const activeProjectId = JSON.parse(localStorage.getItem("activeProjectId"));
     const todo = new Todo(existingTodos.todos.length + 1, title, description, false, formatDate(dueDate), activeProjectId)
     existingTodos.todos.push(todo);
