@@ -79,3 +79,29 @@
   .close-icon:hover
     color var(--fluid-color)
 
+input[type="checkbox"]
+  display none
+
+.checkbox-container
+  display inline-block
+  width 24px
+  height 24px
+  background-color rgba(255, 255, 255, 0.1)
+  border-radius 4px
+  position relative
+  cursor pointer
+
+.checkbox-container:after
+  content ''
+  position absolute
+  top 50%
+  left 50%
+  width 16px
+  height 16px
+  background-color var(--keppel-color)
+  border-radius 4px
+  transform translate(-50%, -50%) scale(0)
+  transition all 0.2s ease
+
+input[type="checkbox"]:checked + .checkbox-container:after
+  transform translate(-50%, -50%) scale(1)

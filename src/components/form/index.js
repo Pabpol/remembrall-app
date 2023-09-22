@@ -3,12 +3,11 @@ import Project from "../../classes/Project";
 import "./index.styl";
 
 
-export default (type) => {
+export default (type, todo) => {
     const main = document.getElementById("main");
     const modal = document.createElement("section");
     const modalContent = document.createElement("section");
-    const form = type === "todoForm" ? createTodoForm() : createProjectForm();
-
+    const form = type === "todoForm" ? createTodoForm(todo) : createProjectForm();
 
     modal.className = "modal-overlay";
     modalContent.className = "modal-content";
@@ -20,7 +19,8 @@ export default (type) => {
 
 }
 
-function createTodoForm() {
+function createTodoForm(todo) {
+    console.log(todo?.dueDate);
     const form = document.createElement("form");
     form.className = "todo-form";
 
@@ -35,6 +35,7 @@ function createTodoForm() {
     titleInput.setAttribute("type", "text");
     titleInput.setAttribute("name", "title");
     titleInput.setAttribute("id", "title");
+    titleInput.value = todo ? todo.title : "";
     titleSpan.appendChild(titleLabel);
     titleSpan.appendChild(titleInput);
 
@@ -48,6 +49,7 @@ function createTodoForm() {
     const descInput = document.createElement("textarea");
     descInput.setAttribute("name", "description");
     descInput.setAttribute("id", "description");
+    descInput.textContent = todo?.description;
     descSpan.appendChild(descLabel);
     descSpan.appendChild(descInput);
 
@@ -62,6 +64,7 @@ function createTodoForm() {
     dateInput.setAttribute("type", "date");
     dateInput.setAttribute("name", "dueDate");
     dateInput.setAttribute("id", "dueDate");
+    dateInput.value = todo ? `${todo.dueDate.split("/")[2]}-${todo.dueDate.split("/")[1]}-${todo.dueDate.split("/")[0]}` : "";
     dateSpan.appendChild(dateLabel);
     dateSpan.appendChild(dateInput);
 
@@ -69,9 +72,9 @@ function createTodoForm() {
     const submitInput = document.createElement("input");
     submitInput.className = "submit";
     submitInput.setAttribute("type", "submit");
-    submitInput.textContent = "Add To-Do"
+    submitInput.value = todo ? "Save" : "Add To-Do";
     submitInput.addEventListener("click", (e) => {
-        addTodo(titleInput.value, descInput.value, dateInput.value);
+        todo ? editTodo(todo, titleInput.value, descInput.value, dateInput.value) : addTodo(titleInput.value, descInput.value, dateInput.value);
     });
 
     // Create close icon
@@ -150,16 +153,35 @@ function createProjectForm() {
 
 function addTodo(title, description, dueDate) {
     const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
-    const activeProjectId = JSON.parse(localStorage.getItem("activeProjectId")) ;
-    const todo = new Todo(existingTodos.todos.length+1, title, description, false, dueDate, activeProjectId)
+    const activeProjectId = JSON.parse(localStorage.getItem("activeProjectId"));
+    const todo = new Todo(existingTodos.todos.length + 1, title, description, false, formatDate(dueDate), activeProjectId)
     existingTodos.todos.push(todo);
     localStorage.setItem("todos", JSON.stringify(existingTodos));
 
 }
 function addProject(title, description) {
     const existingProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    const project = new Project(existingProjects.projects.length+1, title, description)
+    const project = new Project(existingProjects.projects.length + 1, title, description)
     existingProjects.projects.push(project);
     localStorage.setItem("projects", JSON.stringify(existingProjects));
 
+}
+function editTodo(updatedTodo, title, description, dueDate) {
+    const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    const todos = existingTodos.todos;
+    const todoIndex = todos.findIndex(todo => todo.id === updatedTodo.id);
+    updatedTodo.title = title;
+    updatedTodo.description = description;
+    updatedTodo.dueDate = formatDate(dueDate);
+
+    if (todoIndex !== -1) {
+        todos[todoIndex] = updatedTodo;
+        existingTodos.todos = todos;
+        localStorage.setItem("todos", JSON.stringify(existingTodos));
+    }
+}
+
+function formatDate(date) {
+    const [year, month, day] = date.split("-");
+    return `${day}/${month}/${year}`;
 }
