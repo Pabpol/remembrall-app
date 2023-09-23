@@ -71,7 +71,7 @@ function editTodo(todo) {
   }
   
   function deleteTodo(todo) {
-    if (!confirm("¿Estás seguro de que deseas eliminar este 'todo'?")) {
+    if (!confirm("Are you sure you want to delete this TO-DO?")) {
       return;
     }
   

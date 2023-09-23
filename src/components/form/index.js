@@ -3,11 +3,11 @@ import Project from "../../classes/Project";
 import "./index.styl";
 
 
-export default (type, todo) => {
+export default (type, object) => {
     const main = document.getElementById("main");
     const modal = document.createElement("section");
     const modalContent = document.createElement("section");
-    const form = type === "todoForm" ? createTodoForm(todo) : createProjectForm();
+    const form = type === "todoForm" ? createTodoForm(object) : createProjectForm(object);
 
     modal.className = "modal-overlay";
     modalContent.className = "modal-content";
@@ -20,7 +20,6 @@ export default (type, todo) => {
 }
 
 function createTodoForm(todo) {
-    console.log(todo?.dueDate);
     const form = document.createElement("form");
     form.className = "todo-form";
 
@@ -95,7 +94,7 @@ function createTodoForm(todo) {
     return form;
 }
 
-function createProjectForm() {
+function createProjectForm(object) {
     const form = document.createElement("form");
     form.className = "todo-form";
 
@@ -110,6 +109,7 @@ function createProjectForm() {
     titleInput.setAttribute("type", "text");
     titleInput.setAttribute("name", "projectTitle");
     titleInput.setAttribute("id", "projectTitle");
+    titleInput.value =object?.name || ""; 
     titleSpan.appendChild(titleLabel);
     titleSpan.appendChild(titleInput);
 
@@ -123,6 +123,7 @@ function createProjectForm() {
     const descInput = document.createElement("textarea");
     descInput.setAttribute("name", "projectDescription");
     descInput.setAttribute("id", "projectDescription");
+    descInput.textContent = object?.description;
     descSpan.appendChild(descLabel);
     descSpan.appendChild(descInput);
 
@@ -138,9 +139,9 @@ function createProjectForm() {
     const submitInput = document.createElement("input");
     submitInput.className = "submit";
     submitInput.setAttribute("type", "submit");
-    submitInput.textContent = "Add Project"
+    submitInput.value = object ? "Save" : "Add Project";
     submitInput.addEventListener("click", () => {
-        addProject(titleInput.value, descInput.value);
+        object ? editProject(object, titleInput.value, descInput.value) : addProject(titleInput.value, descInput.value);
     });
     // Append close icon and all fields to form
     form.appendChild(closeIcon);
@@ -159,13 +160,6 @@ function addTodo(title, description, dueDate) {
     localStorage.setItem("todos", JSON.stringify(existingTodos));
 
 }
-function addProject(title, description) {
-    const existingProjects = JSON.parse(localStorage.getItem("projects")) || {projects:[]};
-    const project = new Project(existingProjects.projects.length + 1, title, description)
-    existingProjects.projects.push(project);
-    localStorage.setItem("projects", JSON.stringify(existingProjects));
-
-}
 function editTodo(updatedTodo, title, description, dueDate) {
     const existingTodos = JSON.parse(localStorage.getItem("todos")) || [];
     const todos = existingTodos.todos;
@@ -173,11 +167,31 @@ function editTodo(updatedTodo, title, description, dueDate) {
     updatedTodo.title = title;
     updatedTodo.description = description;
     updatedTodo.dueDate = formatDate(dueDate);
-
+    
     if (todoIndex !== -1) {
         todos[todoIndex] = updatedTodo;
         existingTodos.todos = todos;
         localStorage.setItem("todos", JSON.stringify(existingTodos));
+    }
+}
+function addProject(title, description) {
+    const existingProjects = JSON.parse(localStorage.getItem("projects")) || {projects:[]};
+    const project = new Project(existingProjects.projects.slice(-1)[0].id+1, title, description)
+    existingProjects.projects.push(project);
+    localStorage.setItem("projects", JSON.stringify(existingProjects));
+
+}
+function editProject(updatedProject, name, description) {
+    const existingProjects = JSON.parse(localStorage.getItem("projects")) || {projects:[]};
+    const projects = existingProjects.projects;
+    const projectIndex = projects.findIndex(p => p.id === updatedProject.id);
+    updatedProject.name = name;
+    updatedProject.description = description;
+    
+    if (projectIndex !== -1) {
+        projects[projectIndex] = updatedProject;
+        existingProjects.projects = projects;
+        localStorage.setItem("projects", JSON.stringify(existingProjects));
     }
 }
 
