@@ -46,6 +46,13 @@
       transform translateY(-7px);
      &:active
       transform translateY(-1px)
+     &:disabled
+       cursor not-allowed
+       background-color var(--arsenic-color)
+       color var(--spacegum-color)
+       box-shadow none
+       &:hover
+        transform none
   ul
     left 0
     width 100%
@@ -113,3 +120,24 @@
         line-height 60px
         text-align start
         white-space nowrap
+.emptyStateProjects
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    height 150px
+    margin 20px
+    padding 10px
+    border 2px dashed var(--fluid-color)
+    border-radius 8px
+    font-family 'Nunito', sans-serif
+    font-weight 600
+    font-size 1.1em
+    color var(--fluid-color)
+    background-color var(--gunmetal-color)
+    text-align center
+
+    &:hover
+        background-color var(--fluid-color)
+        color var(--gunmetal-color)
+

@@ -14,9 +14,15 @@ export default (projects) => {
     projectTitle.className = "project-title";
     toggleNav.className = "toggle";
     navIcon.className = "fa fa-chevron-left";
-    projectTitle.textContent = project.name;
-    projectDescription.textContent = project.description;
-    
+
+    if (!project) {
+        projectTitle.textContent = "No Project Selected";
+        projectDescription.textContent = "Please select or add a project from the navigation.";
+    } else {
+        projectTitle.textContent = project.name;
+        projectDescription.textContent = project.description;
+    }
+
     toggleNav.addEventListener("click", () => {
         const navigation = document.querySelector(".navigation");
         main.classList.toggle("active");
