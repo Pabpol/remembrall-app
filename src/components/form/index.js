@@ -176,7 +176,7 @@ function editTodo(updatedTodo, title, description, dueDate) {
 }
 function addProject(title, description) {
     const existingProjects = JSON.parse(localStorage.getItem("projects")) || {projects:[]};
-    const project = new Project(existingProjects.projects.slice(-1)[0].id+1, title, description)
+    const project = new Project(existingProjects.projects.slice(-1)[0]?.id+1||1 , title, description)
     existingProjects.projects.push(project);
     localStorage.setItem("projects", JSON.stringify(existingProjects));
 
