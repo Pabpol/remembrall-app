@@ -46,6 +46,13 @@
 
       & .fa-trash
         color var(--outer-space-color)
+      &:disabled
+       cursor not-allowed
+       background-color var(--arsenic-color)
+       color var(--spacegum-color)
+       box-shadow none
+       &:hover
+        transform none
 
 .toggle
   position relative

@@ -31,9 +31,13 @@ export default (projects) => {
     if (!project) {
         projectTitle.textContent = "No Project Selected";
         projectDescription.textContent = "Please select or add a project from the navigation.";
+        editButton.disabled = true
+        deleteButton.disabled = true
     } else {
         projectTitle.textContent = project.name;
         projectDescription.textContent = project.description;
+        editButton.addEventListener("click", () => {form("projectForm",project)});
+        deleteButton.addEventListener("click", () => deleteProject(activeProjectId));
     }
 
     toggleNav.addEventListener("click", () => {
@@ -44,8 +48,6 @@ export default (projects) => {
         navIcon.classList.toggle("fa-chevron-right");
     });
     
-    editButton.addEventListener("click", () => {form("projectForm",project)});
-    deleteButton.addEventListener("click", () => deleteProject(activeProjectId));
 
     editButton.appendChild(editIcon);
     deleteButton.appendChild(deleteIcon);
