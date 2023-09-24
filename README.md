@@ -4,6 +4,10 @@
 
 Remembrall is a task and project management application built with pure JavaScript. It's designed for efficient tracking and collaboration of projects and their associated tasks. This application was developed as part of the JavaScript path at [The Odin Project](https://www.theodinproject.com/).
 
+## Live Demo
+
+[Remembrall App Live Demo](https://main--flourishing-pasca-e29b3a.netlify.app/)
+
 ## Technologies Used
 
 - **JavaScript (Vanilla)**: The core of the project, with no additional frameworks.
@@ -27,4 +31,3 @@ Remembrall is a task and project management application built with pure JavaScri
 ## Author
 
 Pabpol ([@Pabpol](https://github.com/Pabpol))
-
